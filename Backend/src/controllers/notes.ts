@@ -39,7 +39,6 @@ export const createNote: RequestHandler<unknown,unknown,CreateNoteBody,unknown> 
 
     const title = req.body.title
     const description = req.body.description
-    res.json(req.body)
     try {
         if(!title || title.trim() === ""){
             throw createHttpError(400,"No se ha proveido un Titulo")
