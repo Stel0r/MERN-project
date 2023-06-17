@@ -18,13 +18,13 @@ export async function getLoggedUser():Promise<User> {
     return user.json()
 }
 
-export interface signupCredentials{
+export interface SignUpCredentials{
     username:string,
     email:string,
     password:string,
 }
 
-export async function signUp(credentials:signupCredentials) : Promise<User> {
+export async function signUp(credentials:SignUpCredentials) : Promise<User> {
     const response = await fetchData("/API/users/signup",
     {
         method:"POST",
