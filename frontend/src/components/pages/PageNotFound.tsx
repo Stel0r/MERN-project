@@ -1,6 +1,6 @@
 function PageNotFound() {
     return (
-        <div><p>This page doesnt exist, where did you find this link ? .-.</p></div>
+        <div><p style={{textAlign:"center"}}>This page doesnt exist, where did you find this link ? .-.</p></div>
     )
 }
 

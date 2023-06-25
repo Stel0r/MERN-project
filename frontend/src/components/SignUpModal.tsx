@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import { User } from "../models/user";
 import { SignUpCredentials } from '../network/notes_api'
 import * as NotesApi from '../network/notes_api'
-import { Button, Form, Modal } from "react-bootstrap"
+import { Alert, Button, Form, Modal } from "react-bootstrap"
 import TextInputField from './form/TextInputField'
-import StylesUtils from '../styles/Utils.module.css'
+import { useState } from "react";
+import { ConflictError } from "../errors/http.errors";
 
 
 interface SignUpModalProps {
@@ -16,6 +17,8 @@ interface SignUpModalProps {
 
 function SignUpModal({ onDismiss, onSignUpSend }: SignUpModalProps) {
 
+    const [errorText, setErrorText] = useState<string|null>(null)
+
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignUpCredentials>()
 
     async function onSubmit(credentials: SignUpCredentials) {
@@ -23,8 +26,10 @@ function SignUpModal({ onDismiss, onSignUpSend }: SignUpModalProps) {
             const newUser = await NotesApi.signUp(credentials)
             onSignUpSend(newUser)
         } catch (error) {
-            alert(error)
-            console.log(error)
+            if(error instanceof ConflictError){
+                setErrorText(error.message)
+            }else{alert(error)}
+            console.error(error)
         }
     }
 
@@ -34,6 +39,9 @@ function SignUpModal({ onDismiss, onSignUpSend }: SignUpModalProps) {
                 <Modal.Title>Sign Up</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <Alert variant="danger">
+                    {errorText}
+                </Alert>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <TextInputField
                         name="username"

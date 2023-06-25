@@ -9,6 +9,7 @@ import { Container } from 'react-bootstrap';
 import NotesPage from './components/pages/NotesPage';
 import PrivacyPage from './components/pages/PrivacyPage';
 import PageNotFound from './components/pages/PageNotFound';
+import Styles from "./styles/app.module.css"
 
 function App() {
 
@@ -28,6 +29,8 @@ function App() {
 			}
 		}
 
+		fetchLoggedInUser()
+
 	}, [])
 
 	return (
@@ -39,7 +42,7 @@ function App() {
 					onLogOutSuccess={() => { setLoggedInUser(null) }}
 					onSignUpClick={() => { setShowSignUp(true) }}
 				/>
-				<Container>
+				<Container className={Styles.container}>
 					<Routes>
 						<Route path= "/" element ={<NotesPage loggedUser={loggedInUser}/>}/>
 						<Route path= "/privacy" element ={<PrivacyPage/>}/>

@@ -1,6 +1,4 @@
-import { Button, Navbar } from "react-bootstrap";
-import { User } from "../models/user";
-import * as NotesApi from '../network/notes_api'
+import { Button } from "react-bootstrap";
 
 interface NavBarLoggedOutViewProps {
     onSingUpClicked: () => void,
